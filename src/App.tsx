@@ -1,28 +1,44 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
-import { TodoList } from './TodoList';
+import Todolist from './Todolist';
+import { TaskType } from './Todolist';
 
-const App = () => {
-  
-const tasks1 = [
-  {id: 1, title: 'HTML&CSS', isDone: true },
-  {id: 2, title: 'JS', isDone: true },
-  {id: 3, title: 'React', isDone: false },
+
+function App() {
+  const tasks_1: Array<TaskType> = [
+    { id: 1, title: 'HTML', isDone: true },
+    { id: 2, title: 'CSS', isDone: true },
+    { id: 3, title: 'ReactL', isDone: false }
   ]
-const tasks2 = [
-  {id: 1, title: 'Rep', isDone: true },
-  {id: 2, title: 'O-o-o', isDone: true },
-  {id: 3, title: 'Na-Na', isDone: false }
-  ]
-return (
-<div>
-  <TodoList title = 'What to learn' tasks = {tasks1}/>
-  <TodoList title = 'Songs' tasks = {tasks2}/>
-</div>
-);
-}
+     const tasks_2: Array<TaskType> = [
+      { id: 1, title: 'Kseniya', isDone: true },
+      { id: 2, title: 'Yura', isDone: false },
+      { id: 3, title: 'Petya', isDone: false }
+    ]
+    
+      const tasks_3: Array<TaskType> = [
+        { id: 1, title: 'Moscow', isDone: true },
+        { id: 2, title: 'Kiev', isDone: false },
+        { id: 3, title: 'Yekarerinburg', isDone: true }
+      ]
 
 
 
-export default App;
+
+      return (
+        <div>
+          <Todolist title={'What to learn?'} tasks={tasks_1} />
+          <Todolist title={'What yor name?'} tasks={tasks_2} />
+          <Todolist title={'What yor adress?'} tasks={tasks_3} />
+        </div>
+      );
+
+    }
+
+
+
+    export default App;
+
+
+
