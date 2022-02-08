@@ -1,12 +1,16 @@
 import { prependListener } from 'process';
 import React from 'react';
 import { isPropertySignature } from 'typescript';
+import { FilterValuesType } from './App';
 import Task from './Task';
+import TasksList from './TasksList';
 import TodolistHeader from './TodolistHeader';
 
 type TodolistPropsType = {
   title: string
   tasks: Array<TaskType>
+  removeTask: (taskID: number) => void
+  changeFilter: (filter: FilterValuesType) => void
 }
 
 export type TaskType = {
@@ -18,27 +22,17 @@ export type TaskType = {
 
 const Todolist = (props: TodolistPropsType) => {
   return (
-    <div className='App'>
-      <div>
-        <TodolistHeader title= {props.title}/>
-        
-        <div>
-          <input />
-          <button>+</button>
-        </div>
-        <ul>
-          <Task {...props.tasks[0]}/>
-          <Task id= {props.tasks[1].id} title={props.tasks[1].title} isDone={props.tasks[1].isDone}/>
-          <Task id= {props.tasks[2].id} title={props.tasks[2].title} isDone={props.tasks[2].isDone}/>
-          
-        </ul>
-        <div>
-          <button>All</button>
-          <button>Active</button>
-          <button>Completed</button>
-        </div>
-      </div>
+
+    <div>
+      <TodolistHeader title={props.title} />
+
+      <TasksList tasks={props.tasks}
+        removeTask={props.removeTask}
+        changeFilter={props.changeFilter}
+      />
+
     </div>
-  )
+
+  );
 }
 export default Todolist;
