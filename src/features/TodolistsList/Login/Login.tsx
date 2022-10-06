@@ -1,17 +1,11 @@
 import React from 'react'
-import Grid from '@mui/material/Grid';
-import Checkbox from '@mui/material/Checkbox';
-import FormControl from '@mui/material/FormControl';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import FormGroup from '@mui/material/FormGroup';
-import FormLabel from '@mui/material/FormLabel';
-import TextField from '@mui/material/TextField';
-import Button from '@mui/material/Button';
+import {Checkbox, FormControl, FormControlLabel, FormGroup, FormLabel, TextField, Button, Grid} from '@material-ui/core'
 import { useFormik } from 'formik';
 import { useDispatch, useSelector } from 'react-redux';
 import { loginTC } from './auth-reducer';
 import { AppRootStateType } from '../../../app/store';
-import { Navigate } from 'react-router-dom'
+import { Redirect } from 'react-router-dom';
+
 
 type FormikErrorType = {
     email?: string
@@ -50,7 +44,7 @@ export const Login = () => {
         },
     })
 if(isLoggedIn){
-    return <Navigate to={'/'}/>
+    return <Redirect to={'/'}/>
 }
 
     return <Grid container justifyContent={'center'}>
@@ -60,7 +54,7 @@ if(isLoggedIn){
                     <FormLabel>
                         <p>To log in get registered
                             <a href={'https://social-network.samuraijs.com/'}
-                                target={'_blank'}> here
+                                target={'_blank'} rel="noopener noreferrer"> here
                             </a>
                         </p>
                         <p>or use common test account credentials:</p>

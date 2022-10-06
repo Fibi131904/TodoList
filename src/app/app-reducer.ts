@@ -1,7 +1,7 @@
 import { Dispatch } from "redux"
 import { authAPI } from "../api/todolists-api"
 import { setIsLoggedInAC } from "../features/TodolistsList/Login/auth-reducer"
-import { handleServerAppError, handleServerNetworkError } from "../utils/error-utils"
+import { handleServerNetworkError } from "../utils/error-utils"
 
 const initialState: InitialStateType = {
     status: 'idle',

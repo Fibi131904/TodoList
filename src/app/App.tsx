@@ -4,19 +4,22 @@ import { TodolistsList } from '../features/TodolistsList/TodolistsList'
 import { useDispatch, useSelector } from 'react-redux'
 import { AppRootStateType } from './store'
 import { initializeAppTC, RequestStatusType } from './app-reducer'
-import AppBar from '@mui/material/AppBar';
-import Toolbar from '@mui/material/Toolbar';
-import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
-import Container from '@mui/material/Container';
-import LinearProgress from '@mui/material/LinearProgress';
-import { Menu } from '@mui/icons-material';
+import {
+    AppBar,
+    Button,
+    CircularProgress,
+    Container,
+    IconButton,
+    LinearProgress,
+    Toolbar,
+    Typography
+} from '@material-ui/core'
+import { Menu } from '@material-ui/icons'
 import { ErrorSnackbar } from '../components/ErrorSnackbar/ErrorSnackbar'
-import { Navigate, Route, Routes } from 'react-router-dom'
+import { BrowserRouter, Route } from 'react-router-dom'
 import { Login } from '../features/TodolistsList/Login/Login'
-import { CircularProgress } from '@mui/material'
 import { logoutTC } from '../features/TodolistsList/Login/auth-reducer'
+
 
 type PropsType = {
     demo?: boolean
@@ -26,7 +29,7 @@ function App({ demo = false }: PropsType) {
     const dispatch = useDispatch()
     const status = useSelector<AppRootStateType, RequestStatusType>((state) => state.app.status)
     const isInitialized = useSelector<AppRootStateType, boolean>((state) => state.app.isInitialized)
-    const isLoggedIn= useSelector<AppRootStateType, boolean>((state)=>state.auth.isLoggedIn)
+    const isLoggedIn = useSelector<AppRootStateType, boolean>((state) => state.auth.isLoggedIn)
 
     useEffect(() => {
         dispatch(initializeAppTC())
@@ -34,40 +37,41 @@ function App({ demo = false }: PropsType) {
 
     if (!isInitialized) {
         return <div
-            style={{position: 'fixed', top: '30%', textAlign: 'center', width: '100%'}}>
-            <CircularProgress/>
+            style={{ position: 'fixed', top: '30%', textAlign: 'center', width: '100%' }}>
+            <CircularProgress />
         </div>
-     }
-     const logoutHandler=()=>{
+    }
+    const logoutHandler = () => {
         dispatch(logoutTC())
-     }
-     
+    }
+
 
     return (
-        <div className="App">
-            <ErrorSnackbar />
-            <AppBar position="static">
-                <Toolbar>
-                    <IconButton edge="start" color="inherit" aria-label="menu">
-                        <Menu />
-                    </IconButton>
-                    <Typography variant="h6">
-                        News
-                    </Typography>
-                   {isLoggedIn && <Button color="inherit" onClick={logoutHandler}>Logout</Button>}
-                </Toolbar>
-                {status === 'loading' && <LinearProgress />}
-            </AppBar>
+        <BrowserRouter>
+            <div className="App">
+                <ErrorSnackbar />
+                <AppBar position="static">
+                    <Toolbar>
+                        <IconButton edge="start" color="inherit" aria-label="menu">
+                            <Menu />
+                        </IconButton>
+                        <Typography variant="h6">
+                            News
+                        </Typography>
+                        {isLoggedIn && <Button color="inherit" onClick={logoutHandler}>Logout</Button>}
+                    </Toolbar>
+                    {status === 'loading' && <LinearProgress />}
+                </AppBar>
 
-            <Container fixed>
-                <Routes>
-                    <Route path='/' element={<TodolistsList/>} />
-                    <Route path='login' element={<Login/>} />
-                    <Route path='404' element={<h1 style={{ textAlign: 'center' }}>PAGE NO FOUND 404</h1>} />
-                    <Route path='*' element={<Navigate to={'404'} />} />
-                </Routes>
-            </Container>
-        </div>
+                <Container fixed>
+
+                    <Route path='/' render={() => <TodolistsList />} />
+                    <Route path='login' render={() => <Login />} />
+                    <Route path='404' render={() => <h1 style={{ textAlign: 'center' }}>PAGE NO FOUND 404</h1>} />
+
+                </Container>
+            </div>
+        </BrowserRouter>
     )
 }
 

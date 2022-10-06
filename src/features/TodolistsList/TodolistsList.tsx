@@ -12,11 +12,11 @@ import {
 } from './todolists-reducer'
 import { addTaskTC, removeTaskTC, TasksStateType, updateTaskTC } from './tasks-reducer'
 import { TaskStatuses } from '../../api/todolists-api'
-import Grid from '@mui/material/Grid';
-import Paper from '@mui/material/Paper';
 import { AddItemForm } from '../../components/AddItemForm/AddItemForm'
 import { Todolist } from './Todolist/Todolist'
-import { Navigate } from 'react-router-dom'
+import { Redirect } from 'react-router-dom'
+import { Grid, Paper } from '@material-ui/core'
+
 
 type PropsType = {
     demo?: boolean
@@ -67,7 +67,7 @@ export const TodolistsList: React.FC<PropsType> = ({demo = false}) => {
     const changeTodolistTitle = useCallback(function (id: string, title: string) {
         const thunk = changeTodolistTitleTC(id, title)
         dispatch(thunk)
-    }, [])
+    }, [dispatch])
 
     const addTodolist = useCallback((title: string) => {
         const thunk = addTodolistTC(title)
@@ -75,7 +75,7 @@ export const TodolistsList: React.FC<PropsType> = ({demo = false}) => {
     }, [dispatch])
     
     if(!isLoggedIn){
-        return <Navigate to={'login'}/>
+        return <Redirect to={'login'}/>
     }
     
 
